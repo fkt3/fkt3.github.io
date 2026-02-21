@@ -478,11 +478,36 @@ function setModalFilter(f) { currentModalFilter = f; refreshModalCards(); }
 
 function toggleCard(cardId) {
   var nowOwned = toggleOwned(cardId);
+  // Instant DOM toggle
   var el = document.querySelector('[data-card-id="' + cardId + '"]');
   if (el) { if (nowOwned) el.classList.add('owned'); else el.classList.remove('owned'); }
   updateGlobalStats();
+  // Update modal toolbar stats without full re-render
+  updateModalStats();
+  // Debounce grid re-render only
   clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(function() { refreshModalCards(); render(); }, 400);
+  refreshTimer = setTimeout(function() { render(); }, 400);
+}
+
+function updateModalStats() {
+  if (!currentModalSetId || !setCardsCache[currentModalSetId]) return;
+  var set = setCardsCache[currentModalSetId];
+  var col = getCollection();
+  var cards = set.cards || [];
+  var owned = 0;
+  for (var i = 0; i < cards.length; i++) { if (col[cards[i].id]) owned++; }
+  var total = cards.length;
+  var pct = total > 0 ? Math.round((owned/total)*100) : 0;
+  var isComplete = total > 0 && owned >= total;
+  var pt = document.querySelector('.progress-text');
+  if (pt) pt.innerHTML = '<strong>' + owned + '</strong> / ' + total + ' (' + pct + '%)';
+  var pf = document.querySelector('.modal-progress-fill');
+  if (pf) {
+    pf.style.width = pct + '%';
+    if (isComplete) pf.classList.add('complete'); else pf.classList.remove('complete');
+  }
+  var cab = document.querySelector('.check-all-btn');
+  if (cab) cab.textContent = isComplete ? 'Uncheck All' : 'Check All';
 }
 
 function toggleAllCards(setId) {
