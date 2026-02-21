@@ -10,7 +10,6 @@
   :root {
     --bg: #0c0e14;
     --surface: #14171f;
-    --surface-hover: #1a1e2a;
     --border: #252a38;
     --text: #e8eaf0;
     --text-dim: #8890a4;
@@ -20,101 +19,57 @@
     --blue: #4e8ee8;
     --green: #4ec87e;
     --green-glow: rgba(78, 200, 126, 0.15);
-    --purple: #a478e8;
     --radius: 14px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
   body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(246,200,51,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(246,200,51,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none; z-index: 0;
+    content:''; position:fixed; inset:0;
+    background-image:linear-gradient(rgba(246,200,51,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(246,200,51,0.02) 1px,transparent 1px);
+    background-size:60px 60px; pointer-events:none; z-index:0;
   }
-  .app { position: relative; z-index: 1; }
+  .app { position:relative; z-index:1; }
 
-  /* ── Header ── */
-  header { padding: 48px 32px 32px; text-align: center; position: relative; }
-  header::after {
-    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: min(700px, 80%); height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-  }
-  .logo-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--surface); border: 1px solid var(--border); border-radius: 100px;
-    padding: 6px 16px 6px 8px; font-size: 12px; color: var(--text-dim);
-    margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase;
-  }
-  .logo-badge .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  header { padding:48px 32px 32px; text-align:center; position:relative; }
+  header::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:min(700px,80%); height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
+  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px 16px 6px 8px; font-size:12px; color:var(--text-dim); margin-bottom:20px; letter-spacing:0.5px; text-transform:uppercase; }
+  .logo-badge .dot { width:8px; height:8px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   h1 { font-family:'Anybody',sans-serif; font-weight:900; font-size:clamp(2.4rem,5vw,4rem); letter-spacing:-1px; line-height:1.1; margin-bottom:12px; }
   h1 .highlight { background:linear-gradient(135deg,var(--accent),#ff9d4e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
   .subtitle { color:var(--text-dim); font-size:16px; max-width:500px; margin:0 auto; line-height:1.6; }
 
-  /* ── Stats Banner ── */
   .collection-banner { max-width:1400px; margin:28px auto 0; padding:0 32px; display:flex; gap:12px; flex-wrap:wrap; }
   .stat-card { flex:1; min-width:120px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 20px; text-align:center; }
   .stat-card .stat-value { font-family:'Anybody',sans-serif; font-weight:900; font-size:28px; line-height:1.2; }
   .stat-card .stat-value.gold { color:var(--accent); }
   .stat-card .stat-value.green { color:var(--green); }
   .stat-card .stat-value.blue { color:var(--blue); }
-  .stat-card .stat-value.purple { color:var(--purple); }
   .stat-card .stat-label { font-size:12px; color:var(--text-dim); margin-top:4px; text-transform:uppercase; letter-spacing:0.5px; }
 
-  /* ── Data bar ── */
   .data-bar { max-width:1400px; margin:16px auto 0; padding:0 32px; display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
-  .data-btn {
-    background:var(--surface); border:1px solid var(--border); border-radius:8px;
-    padding:8px 14px; color:var(--text-dim); cursor:pointer; font-family:inherit;
-    font-size:12px; transition:all 0.2s; display:flex; align-items:center; gap:5px;
-  }
+  .data-btn { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:8px 14px; color:var(--text-dim); cursor:pointer; font-family:inherit; font-size:12px; transition:all 0.2s; display:flex; align-items:center; gap:5px; }
   .data-btn:hover { border-color:var(--accent); color:var(--text); }
   .data-btn.danger:hover { border-color:var(--red); color:var(--red); }
-  .toast {
-    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px);
-    background:var(--green); color:#0c0e14; padding:12px 24px; border-radius:10px;
-    font-weight:600; font-size:14px; z-index:300; transition:transform 0.3s ease; pointer-events:none;
-  }
+
+  .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--green); color:#0c0e14; padding:12px 24px; border-radius:10px; font-weight:600; font-size:14px; z-index:300; transition:transform 0.3s ease; pointer-events:none; }
   .toast.show { transform:translateX(-50%) translateY(0); }
 
-  /* ── Controls ── */
   .controls { max-width:1400px; margin:24px auto; padding:0 32px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
   .search-box { flex:1; min-width:240px; position:relative; }
   .search-box svg { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--text-dim); width:18px; height:18px; }
-  .search-box input {
-    width:100%; padding:12px 16px 12px 44px; background:var(--surface); border:1px solid var(--border);
-    border-radius:10px; color:var(--text); font-family:inherit; font-size:14px; outline:none;
-    transition:border-color 0.2s, box-shadow 0.2s;
-  }
+  .search-box input { width:100%; padding:12px 16px 12px 44px; background:var(--surface); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:inherit; font-size:14px; outline:none; transition:border-color 0.2s,box-shadow 0.2s; }
   .search-box input:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
   .search-box input::placeholder { color:var(--text-dim); }
   .stats-pill { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 20px; font-size:13px; color:var(--text-dim); white-space:nowrap; }
   .stats-pill strong { color:var(--accent); font-weight:700; }
-  .sort-btn {
-    background:var(--surface); border:1px solid var(--border); border-radius:10px;
-    padding:12px 18px; color:var(--text-dim); cursor:pointer; font-family:inherit;
-    font-size:13px; transition:all 0.2s; display:flex; align-items:center; gap:6px;
-  }
-  .sort-btn:hover { border-color:var(--accent); color:var(--text); }
-  .sort-btn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-glow); }
+  .filter-btn, .sort-btn { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; color:var(--text-dim); cursor:pointer; font-family:inherit; font-size:13px; transition:all 0.2s; display:flex; align-items:center; gap:6px; }
+  .filter-btn:hover, .sort-btn:hover { border-color:var(--accent); color:var(--text); }
+  .filter-btn.active, .sort-btn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-glow); }
+  .grid-filter-btns { display:flex; gap:4px; }
 
-  /* ── Set Grid ── */
   .grid { max-width:1400px; margin:0 auto; padding:0 32px 80px; display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
-  .set-card {
-    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
-    padding:20px; cursor:pointer; transition:all 0.25s ease; position:relative;
-    overflow:hidden; display:flex; flex-direction:column; gap:14px;
-  }
+  .set-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; cursor:pointer; transition:all 0.25s ease; position:relative; overflow:hidden; display:flex; flex-direction:column; gap:14px; }
   .set-card.animate { animation:fadeUp 0.4s ease both; }
   @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
   .set-card:hover { border-color:var(--accent); transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,0.4),0 0 0 1px var(--accent),0 0 30px var(--accent-glow); }
@@ -134,21 +89,11 @@
   .progress-bar-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--green),#66e6a0); transition:width 0.4s ease; }
   .progress-bar-fill.complete { background:linear-gradient(90deg,var(--accent),#ffe066); }
 
-  /* ── Set Modal ── */
   .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); z-index:100; align-items:center; justify-content:center; padding:24px; }
   .modal-overlay.active { display:flex; }
-  .modal {
-    background:var(--surface); border:1px solid var(--border); border-radius:18px;
-    max-width:900px; width:100%; max-height:85vh; overflow-y:auto; padding:32px;
-    position:relative; animation:modalIn 0.3s ease;
-  }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:18px; max-width:900px; width:100%; max-height:85vh; overflow-y:auto; padding:32px; position:relative; animation:modalIn 0.3s ease; }
   @keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
-  .modal-close {
-    position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%;
-    background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-dim);
-    cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px;
-    transition:all 0.2s; z-index:2;
-  }
+  .modal-close { position:absolute; top:16px; right:16px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-dim); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; transition:all 0.2s; z-index:2; }
   .modal-close:hover { background:var(--red); color:white; border-color:var(--red); }
   .modal-header { display:flex; align-items:center; gap:16px; margin-bottom:16px; flex-wrap:wrap; }
   .modal-header img { height:50px; object-fit:contain; }
@@ -159,98 +104,23 @@
   .modal-toolbar .modal-progress-bar { flex:1; min-width:80px; height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; }
   .modal-toolbar .modal-progress-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--green),#66e6a0); transition:width 0.3s ease; }
   .modal-toolbar .modal-progress-fill.complete { background:linear-gradient(90deg,var(--accent),#ffe066); }
-  .check-all-btn, .modal-filter-btn {
-    background:var(--surface); border:1px solid var(--border); border-radius:8px;
-    padding:7px 14px; color:var(--text-dim); cursor:pointer; font-family:inherit;
-    font-size:12px; transition:all 0.2s;
-  }
+  .check-all-btn, .modal-filter-btn { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:7px 14px; color:var(--text-dim); cursor:pointer; font-family:inherit; font-size:12px; transition:all 0.2s; }
   .check-all-btn:hover { border-color:var(--green); color:var(--green); }
   .modal-filter-btns { display:flex; gap:4px; }
   .modal-filter-btn { padding:5px 10px; border-radius:6px; font-size:11px; background:transparent; }
   .modal-filter-btn:hover { border-color:var(--accent); color:var(--text); }
   .modal-filter-btn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-glow); }
 
-  /* ── Modal card grid ── */
   .modal-cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; margin-top:12px; }
-  .modal-card-item {
-    text-align:center; padding:8px; border-radius:10px; background:rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.04); transition:all 0.2s; cursor:pointer;
-    position:relative; user-select:none;
-  }
+  .modal-card-item { text-align:center; padding:8px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); transition:all 0.2s; cursor:pointer; position:relative; user-select:none; }
   .modal-card-item:hover { border-color:rgba(255,255,255,0.15); background:rgba(255,255,255,0.04); }
   .modal-card-item.owned { border-color:rgba(78,200,126,0.4); background:rgba(78,200,126,0.06); }
-  .modal-card-item.owned::after {
-    content:'\2713'; position:absolute; top:6px; right:6px;
-    width:22px; height:22px; background:var(--green); color:#0c0e14; border-radius:50%;
-    font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 2px 8px rgba(78,200,126,0.4);
-  }
-  .modal-card-item.partial::after {
-    content:'~'; position:absolute; top:6px; right:6px;
-    width:22px; height:22px; background:var(--accent); color:#0c0e14; border-radius:50%;
-    font-size:15px; font-weight:700; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 2px 8px rgba(246,200,51,0.4);
-  }
-  .modal-card-item:not(.owned):not(.partial) .card-img { opacity:0.45; filter:grayscale(0.4); }
-  .modal-card-item.owned .card-img, .modal-card-item.partial .card-img { opacity:1; filter:none; }
-  .card-img { width:100%; border-radius:6px; aspect-ratio:3/4.2; object-fit:cover; background:rgba(255,255,255,0.03); transition:opacity 0.2s, filter 0.2s; }
+  .modal-card-item.owned::after { content:'\2713'; position:absolute; top:6px; right:6px; width:22px; height:22px; background:var(--green); color:#0c0e14; border-radius:50%; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(78,200,126,0.4); }
+  .modal-card-item:not(.owned) .card-img { opacity:0.45; filter:grayscale(0.4); }
+  .modal-card-item.owned .card-img { opacity:1; filter:none; }
+  .card-img { width:100%; border-radius:6px; aspect-ratio:3/4.2; object-fit:cover; background:rgba(255,255,255,0.03); transition:opacity 0.2s,filter 0.2s; }
   .modal-card-item .card-label { font-size:11px; margin-top:6px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .modal-card-item .card-local-id { font-size:10px; color:rgba(255,255,255,0.25); font-family:monospace; }
-  /* Variant tags under card */
-  .variant-tags { display:flex; gap:3px; flex-wrap:wrap; justify-content:center; margin-top:4px; }
-  .variant-tag { font-size:9px; padding:1px 5px; border-radius:4px; font-weight:600; }
-  .variant-tag.vt-normal { background:rgba(255,255,255,0.08); color:var(--text-dim); }
-  .variant-tag.vt-holo { background:rgba(78,200,126,0.15); color:var(--green); }
-  .variant-tag.vt-reverse { background:rgba(78,142,232,0.15); color:var(--blue); }
-  .variant-tag.vt-firstEdition { background:rgba(246,200,51,0.15); color:var(--accent); }
-  .variant-tag.vt-wPromo { background:rgba(164,120,232,0.15); color:var(--purple); }
-
-  /* ── Card Detail Popover ── */
-  .card-detail-overlay {
-    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);
-    z-index:150; align-items:center; justify-content:center; padding:20px;
-  }
-  .card-detail-overlay.active { display:flex; }
-  .card-detail {
-    background:var(--surface); border:1px solid var(--border); border-radius:16px;
-    max-width:420px; width:100%; padding:24px; position:relative;
-    animation:modalIn 0.25s ease;
-  }
-  .card-detail-close {
-    position:absolute; top:12px; right:12px; width:30px; height:30px; border-radius:50%;
-    background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-dim);
-    cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:15px;
-    transition:all 0.2s;
-  }
-  .card-detail-close:hover { background:var(--red); color:white; border-color:var(--red); }
-  .card-detail-top { display:flex; gap:16px; margin-bottom:16px; }
-  .card-detail-img { width:120px; border-radius:8px; aspect-ratio:3/4.2; object-fit:cover; background:rgba(255,255,255,0.03); }
-  .card-detail-info { flex:1; }
-  .card-detail-info h3 { font-family:'Anybody',sans-serif; font-weight:700; font-size:18px; margin-bottom:4px; }
-  .card-detail-info .cd-meta { font-size:12px; color:var(--text-dim); margin-bottom:2px; }
-  .card-detail-info .cd-rarity { font-size:12px; color:var(--accent); margin-top:4px; }
-  .card-detail-loading { text-align:center; padding:20px; color:var(--text-dim); }
-
-  .variant-checklist { margin-top:16px; }
-  .variant-checklist h4 { font-size:13px; color:var(--text-dim); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
-  .variant-row {
-    display:flex; align-items:center; gap:12px; padding:10px 14px;
-    border-radius:10px; border:1px solid var(--border); margin-bottom:6px;
-    cursor:pointer; transition:all 0.2s; user-select:none;
-  }
-  .variant-row:hover { border-color:rgba(255,255,255,0.15); background:rgba(255,255,255,0.02); }
-  .variant-row.checked { border-color:rgba(78,200,126,0.4); background:rgba(78,200,126,0.06); }
-  .variant-checkbox {
-    width:22px; height:22px; border-radius:6px; border:2px solid var(--border);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
-    transition:all 0.2s; font-size:13px; font-weight:700; color:transparent;
-  }
-  .variant-row.checked .variant-checkbox {
-    background:var(--green); border-color:var(--green); color:#0c0e14;
-  }
-  .variant-label { font-size:14px; font-weight:500; }
-  .variant-label-sub { font-size:11px; color:var(--text-dim); margin-left:auto; }
-  .variant-unavailable { opacity:0.35; pointer-events:none; }
 
   .modal-loading { text-align:center; padding:40px; color:var(--text-dim); }
   .spinner { width:32px; height:32px; border:3px solid var(--border); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 12px; }
@@ -263,10 +133,9 @@
     header { padding:32px 20px 24px; }
     .collection-banner,.data-bar,.controls { padding:0 20px; }
     .grid { padding:0 20px 60px; grid-template-columns:1fr; }
-    .modal,.card-detail { padding:20px; }
+    .modal { padding:20px; }
     .stat-card { min-width:80px; }
     .stat-card .stat-value { font-size:22px; }
-    .card-detail-top { flex-direction:column; align-items:center; text-align:center; }
   }
 </style>
 </head>
@@ -275,7 +144,7 @@
   <header>
     <div class="logo-badge"><span class="dot"></span> Pokémon Set Tracker</div>
     <h1>Pokémon <span class="highlight">Set Tracker</span></h1>
-    <p class="subtitle">Browse sets, click cards to track which variants you own. Everything is saved locally in your browser.</p>
+    <p class="subtitle">Browse sets, click cards to mark them as owned. Everything is saved locally in your browser.</p>
   </header>
   <div class="collection-banner">
     <div class="stat-card"><div class="stat-value gold" id="statTotalCards">0</div><div class="stat-label">Cards Owned</div></div>
@@ -300,12 +169,12 @@
       <input type="text" id="searchInput" placeholder="Search sets by name or ID…">
     </div>
     <div class="stats-pill" id="statsPill">Loading…</div>
-    <div class="modal-filter-btns">
-      <button class="modal-filter-btn active" id="gridFilterAll" onclick="setGridFilter('all')">All</button>
-      <button class="modal-filter-btn" id="gridFilterStarted" onclick="setGridFilter('started')">Started</button>
-      <button class="modal-filter-btn" id="gridFilterComplete" onclick="setGridFilter('complete')">Complete</button>
+    <div class="grid-filter-btns">
+      <button class="modal-filter-btn active" id="gfAll" onclick="setGridFilter('all')">All</button>
+      <button class="modal-filter-btn" id="gfStarted" onclick="setGridFilter('started')">Started</button>
+      <button class="modal-filter-btn" id="gfComplete" onclick="setGridFilter('complete')">Complete</button>
     </div>
-    <button class="sort-btn active" id="sortBtn" onclick="toggleSort()">
+    <button class="sort-btn active" onclick="toggleSort()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7-7 7 7"/></svg>
       <span id="sortLabel">A → Z</span>
     </button>
@@ -317,7 +186,6 @@
 
 <div class="toast" id="toast"></div>
 
-<!-- Set modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeModal(event,true)">&#x2715;</button>
@@ -325,26 +193,17 @@
   </div>
 </div>
 
-<!-- Card detail popover -->
-<div class="card-detail-overlay" id="cardDetailOverlay" onclick="closeCardDetail(event)">
-  <div class="card-detail" onclick="event.stopPropagation()">
-    <button class="card-detail-close" onclick="closeCardDetail(null,true)">&#x2715;</button>
-    <div id="cardDetailContent"></div>
-  </div>
-</div>
-
 <script>
 var API = 'https://api.tcgdex.net/v2/en';
-var STORAGE_KEY = 'pokemon_tcg_collection_v2';
+var STORAGE_KEY = 'pokemon_tcg_collection';
 var allSets = [];
 var sortAZ = true;
 var isFirstRender = true;
 var currentModalSetId = null;
 var currentModalFilter = 'all';
+var gridFilter = 'all';
 var setCardsCache = {};
-var cardDetailCache = {};
 var refreshTimer = null;
-var gridFilter = 'all'; // 'all', 'started', 'complete'
 
 // Placeholder for failed card images
 var CARD_PLACEHOLDER = (function() {
@@ -361,118 +220,28 @@ var CARD_PLACEHOLDER = (function() {
 })();
 
 function onCardImgError(img) {
-  if (!img._failed) {
-    img._failed = true;
-    img.src = CARD_PLACEHOLDER;
-  }
+  if (!img._failed) { img._failed = true; img.src = CARD_PLACEHOLDER; }
 }
 
-// Variant display config
-var VARIANT_INFO = {
-  normal:       { label: 'Normal',        icon: '' },
-  holo:         { label: 'Holo',          icon: '✦' },
-  reverse:      { label: 'Reverse Holo',  icon: '◆' },
-  firstEdition: { label: '1st Edition',   icon: '①' },
-  wPromo:       { label: 'W Promo',       icon: 'W' }
-};
-
-// Placeholder for failed card images
-var CARD_PLACEHOLDER = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420"><rect width="300" height="420" rx="16" fill="#1a1e2a"/><circle cx="150" cy="190" r="60" fill="none" stroke="#252a38" stroke-width="6"/><path d="M90 190h120" stroke="#252a38" stroke-width="6"/><circle cx="150" cy="190" r="14" fill="#252a38"/><path d="M90 190a60 60 0 0 1 120 0" fill="#e8594e" fill-opacity="0.25"/><text x="150" y="300" text-anchor="middle" fill="#8890a4" font-family="sans-serif" font-size="18" font-weight="600">Image unavailable</text></svg>');
-
-// ── Collection helpers ──
-// Format: { "cardId": { variants: ["normal","reverse"], ts: timestamp } }
-// Or legacy: { "cardId": timestamp } — we auto-migrate
+// ── Collection: simple { cardId: timestamp } ──
 function getCollection() {
-  try {
-    var raw = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-    return raw;
-  } catch(e) { return {}; }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) { return {}; }
 }
+function saveCollection(col) { localStorage.setItem(STORAGE_KEY, JSON.stringify(col)); }
 
-function saveCollection(col) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(col));
-}
+function isCardOwned(cardId) { return !!getCollection()[cardId]; }
 
-// Migrate from old v1 format if needed
-function migrateCollection() {
-  var oldKey = 'pokemon_tcg_collection';
-  var oldData;
-  try { oldData = JSON.parse(localStorage.getItem(oldKey)); } catch(e) {}
-  if (!oldData || typeof oldData !== 'object') return;
+function toggleOwned(cardId) {
   var col = getCollection();
-  var migrated = 0;
-  for (var key in oldData) {
-    if (!col[key]) {
-      col[key] = { variants: ['normal'], ts: oldData[key] || Date.now() };
-      migrated++;
-    }
-  }
-  if (migrated > 0) {
-    saveCollection(col);
-    localStorage.removeItem(oldKey);
-  }
-}
-
-function isCardOwned(cardId) {
-  var col = getCollection();
-  var entry = col[cardId];
-  if (!entry) return false;
-  if (typeof entry === 'number') return true; // legacy
-  return entry.variants && entry.variants.length > 0;
-}
-
-function getOwnedVariants(cardId) {
-  var col = getCollection();
-  var entry = col[cardId];
-  if (!entry) return [];
-  if (typeof entry === 'number') return ['normal']; // legacy
-  return entry.variants || [];
-}
-
-function setVariantOwned(cardId, variant, owned) {
-  var col = getCollection();
-  var entry = col[cardId];
-  if (!entry) {
-    entry = { variants: [], ts: Date.now() };
-  } else if (typeof entry === 'number') {
-    entry = { variants: ['normal'], ts: entry };
-  }
-  var idx = entry.variants.indexOf(variant);
-  if (owned && idx === -1) {
-    entry.variants.push(variant);
-    entry.ts = Date.now();
-  } else if (!owned && idx !== -1) {
-    entry.variants.splice(idx, 1);
-  }
-  if (entry.variants.length === 0) {
-    delete col[cardId];
-  } else {
-    col[cardId] = entry;
-  }
+  if (col[cardId]) { delete col[cardId]; } else { col[cardId] = Date.now(); }
   saveCollection(col);
+  return !!col[cardId];
 }
 
 function getOwnedInSet(setId) {
   var col = getCollection();
   var count = 0;
-  for (var key in col) {
-    if (key.startsWith(setId + '-')) {
-      var entry = col[key];
-      if (typeof entry === 'number') { count++; continue; }
-      if (entry.variants && entry.variants.length > 0) count++;
-    }
-  }
-  return count;
-}
-
-function getTotalVariantCount() {
-  var col = getCollection();
-  var count = 0;
-  for (var key in col) {
-    var entry = col[key];
-    if (typeof entry === 'number') { count++; continue; }
-    if (entry.variants) count += entry.variants.length;
-  }
+  for (var key in col) { if (key.startsWith(setId + '-')) count++; }
   return count;
 }
 
@@ -510,24 +279,11 @@ function importCollection(event) {
       if (typeof data !== 'object' || Array.isArray(data)) throw new Error('bad');
       var col = getCollection();
       var added = 0;
-      for (var key in data) {
-        if (!col[key]) {
-          col[key] = data[key];
-          added++;
-        } else if (typeof data[key] === 'object' && data[key].variants) {
-          // Merge variants
-          var existing = col[key];
-          if (typeof existing === 'number') existing = { variants: ['normal'], ts: existing };
-          data[key].variants.forEach(function(v) {
-            if (existing.variants.indexOf(v) === -1) { existing.variants.push(v); added++; }
-          });
-          col[key] = existing;
-        }
-      }
+      for (var key in data) { if (!col[key]) { col[key] = data[key] || Date.now(); added++; } }
       saveCollection(col);
       updateGlobalStats(); render();
       if (currentModalSetId) refreshModalCards();
-      showToast('Imported ' + added + ' new entries!');
+      showToast('Imported ' + added + ' new cards!');
     } catch(err) { showToast('Invalid file format.'); }
   };
   reader.readAsText(file);
@@ -548,19 +304,13 @@ function clearCollection() {
 function updateGlobalStats() {
   var col = getCollection();
   var ownedIds = Object.keys(col);
-  var totalCards = 0;
+  var totalCards = ownedIds.length;
   var setsPrefixes = {};
   for (var i = 0; i < ownedIds.length; i++) {
-    var id = ownedIds[i];
-    var entry = col[id];
-    var vCount = (typeof entry === 'number') ? 1 : (entry.variants ? entry.variants.length : 0);
-    if (vCount > 0) {
-      totalCards++;
-      var dashIdx = id.lastIndexOf('-');
-      if (dashIdx > 0) {
-        var prefix = id.substring(0, dashIdx);
-        setsPrefixes[prefix] = (setsPrefixes[prefix] || 0) + 1;
-      }
+    var dashIdx = ownedIds[i].lastIndexOf('-');
+    if (dashIdx > 0) {
+      var prefix = ownedIds[i].substring(0, dashIdx);
+      setsPrefixes[prefix] = (setsPrefixes[prefix] || 0) + 1;
     }
   }
   var setsStarted = Object.keys(setsPrefixes).length;
@@ -578,7 +328,6 @@ function updateGlobalStats() {
 // ── Init ──
 async function init(retries) {
   if (retries === undefined) retries = 2;
-  migrateCollection();
   var grid = document.getElementById('grid');
   try {
     var res = await fetch(API + '/sets');
@@ -608,7 +357,6 @@ function render() {
   var filtered = allSets.filter(function(s) {
     return s.name.toLowerCase().indexOf(q) !== -1 || s.id.toLowerCase().indexOf(q) !== -1;
   });
-  // Apply collection filter
   if (gridFilter !== 'all') {
     filtered = filtered.filter(function(s) {
       var total = s.cardCount ? s.cardCount.total : 0;
@@ -621,7 +369,7 @@ function render() {
   filtered.sort(function(a,b) { return sortAZ ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name); });
   document.getElementById('statsPill').innerHTML = 'Showing <strong>' + filtered.length + '</strong> of <strong>' + allSets.length + '</strong> sets';
   if (filtered.length === 0) {
-    document.getElementById('grid').innerHTML = '<div class="empty-state">No sets match "' + q + '"</div>';
+    document.getElementById('grid').innerHTML = '<div class="empty-state">No sets found.</div>';
     return;
   }
   document.getElementById('grid').innerHTML = filtered.map(function(s, i) {
@@ -655,12 +403,12 @@ function toggleSort() {
 
 function setGridFilter(f) {
   gridFilter = f;
-  ['all','started','complete'].forEach(function(key) {
-    var btn = document.getElementById('gridFilter' + key.charAt(0).toUpperCase() + key.slice(1));
-    if (btn) btn.classList.toggle('active', key === f);
-  });
+  document.getElementById('gfAll').classList.toggle('active', f === 'all');
+  document.getElementById('gfStarted').classList.toggle('active', f === 'started');
+  document.getElementById('gfComplete').classList.toggle('active', f === 'complete');
   render();
 }
+
 document.getElementById('searchInput').addEventListener('input', render);
 
 // ── Set modal ──
@@ -674,15 +422,9 @@ async function openSet(id) {
   try {
     var set;
     if (setCardsCache[id]) { set = setCardsCache[id]; }
-    else {
-      var res = await fetch(API + '/sets/' + id);
-      set = await res.json();
-      setCardsCache[id] = set;
-    }
+    else { var res = await fetch(API + '/sets/' + id); set = await res.json(); setCardsCache[id] = set; }
     renderModal(set);
-  } catch(e) {
-    content.innerHTML = '<div class="modal-loading">Failed to load set.</div>';
-  }
+  } catch(e) { content.innerHTML = '<div class="modal-loading">Failed to load set.</div>'; }
 }
 
 function renderModal(set) {
@@ -690,38 +432,20 @@ function renderModal(set) {
   var col = getCollection();
   var cards = set.cards || [];
   var owned = 0;
-  for (var i = 0; i < cards.length; i++) { if (isCardOwned(cards[i].id)) owned++; }
+  for (var i = 0; i < cards.length; i++) { if (col[cards[i].id]) owned++; }
   var total = cards.length;
   var pct = total > 0 ? Math.round((owned/total)*100) : 0;
   var isComplete = total > 0 && owned >= total;
 
   var filteredCards = cards;
-  if (currentModalFilter === 'owned') filteredCards = cards.filter(function(c) { return isCardOwned(c.id); });
-  else if (currentModalFilter === 'missing') filteredCards = cards.filter(function(c) { return !isCardOwned(c.id); });
+  if (currentModalFilter === 'owned') filteredCards = cards.filter(function(c) { return !!col[c.id]; });
+  else if (currentModalFilter === 'missing') filteredCards = cards.filter(function(c) { return !col[c.id]; });
 
   var cardsHtml = filteredCards.map(function(c) {
-    var variants = getOwnedVariants(c.id);
-    var hasAny = variants.length > 0;
-    // Show variant tags if card has been detailed-fetched
-    var detail = cardDetailCache[c.id];
-    var availableVariants = detail ? detail.variants : null;
-    var allAvailable = availableVariants ? Object.keys(availableVariants).filter(function(k){ return availableVariants[k]; }) : null;
-    var hasAll = allAvailable && allAvailable.length > 0 && allAvailable.every(function(v){ return variants.indexOf(v) !== -1; });
-    var cardClass = hasAll ? 'owned' : (hasAny ? 'partial' : '');
-
-    var tagsHtml = '';
-    if (hasAny) {
-      tagsHtml = '<div class="variant-tags">' + variants.map(function(v) {
-        return '<span class="variant-tag vt-' + v + '">' + (VARIANT_INFO[v] ? VARIANT_INFO[v].label : v) + '</span>';
-      }).join('') + '</div>';
-    }
-
-    return '<div class="modal-card-item ' + cardClass + '" data-card-id="' + c.id + '" onclick="openCardDetail(\'' + c.id + '\')" title="' + c.name + '">' +
+    return '<div class="modal-card-item' + (col[c.id] ? ' owned' : '') + '" data-card-id="' + c.id + '" onclick="toggleCard(\'' + c.id + '\')" title="' + c.name + '">' +
       '<img class="card-img" src="' + c.image + '/low.webp" alt="' + c.name + '" loading="lazy" onerror="onCardImgError(this)">' +
       '<div class="card-label">' + c.name + '</div>' +
-      '<div class="card-local-id">#' + c.localId + '</div>' +
-      tagsHtml +
-      '</div>';
+      '<div class="card-local-id">#' + c.localId + '</div></div>';
   }).join('');
 
   content.innerHTML =
@@ -752,21 +476,25 @@ function refreshModalCards() {
 }
 function setModalFilter(f) { currentModalFilter = f; refreshModalCards(); }
 
+function toggleCard(cardId) {
+  var nowOwned = toggleOwned(cardId);
+  var el = document.querySelector('[data-card-id="' + cardId + '"]');
+  if (el) { if (nowOwned) el.classList.add('owned'); else el.classList.remove('owned'); }
+  updateGlobalStats();
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(function() { refreshModalCards(); render(); }, 400);
+}
+
 function toggleAllCards(setId) {
   var set = setCardsCache[setId];
   if (!set || !set.cards) return;
   var col = getCollection();
-  var allOwned = set.cards.every(function(c) { return isCardOwned(c.id); });
-  if (allOwned) {
-    set.cards.forEach(function(c) { delete col[c.id]; });
-  } else {
-    set.cards.forEach(function(c) {
-      if (!col[c.id]) col[c.id] = { variants: ['normal'], ts: Date.now() };
-    });
-  }
+  var allOwned = set.cards.every(function(c) { return !!col[c.id]; });
+  if (allOwned) { set.cards.forEach(function(c) { delete col[c.id]; }); }
+  else { set.cards.forEach(function(c) { if (!col[c.id]) col[c.id] = Date.now(); }); }
   saveCollection(col);
   updateGlobalStats(); refreshModalCards(); render();
-  showToast(allOwned ? 'Cleared ' + set.name : 'Marked all as owned (Normal)');
+  showToast(allOwned ? 'Cleared ' + set.name : 'Marked all as owned!');
 }
 
 function closeModal(e, force) {
@@ -778,130 +506,8 @@ function closeModal(e, force) {
   }
 }
 
-// ── Card Detail Popover ──
-async function openCardDetail(cardId) {
-  // If we already have the card cached, handle immediately
-  if (cardDetailCache[cardId]) {
-    var card = cardDetailCache[cardId];
-    var available = getAvailableVariants(card);
-    if (available.length <= 1) {
-      quickToggle(cardId, available);
-      return;
-    }
-    showCardDetailPopover(card);
-    return;
-  }
-
-  // Fetch card details
-  var overlay = document.getElementById('cardDetailOverlay');
-  var content = document.getElementById('cardDetailContent');
-  overlay.classList.add('active');
-  content.innerHTML = '<div class="card-detail-loading"><div class="spinner"></div>Loading card…</div>';
-
-  try {
-    var res = await fetch(API + '/cards/' + cardId);
-    var card = await res.json();
-    cardDetailCache[cardId] = card;
-    var available = getAvailableVariants(card);
-    if (available.length <= 1) {
-      overlay.classList.remove('active');
-      quickToggle(cardId, available);
-      return;
-    }
-    showCardDetailPopover(card);
-  } catch(e) {
-    content.innerHTML = '<div class="card-detail-loading">Failed to load card details.</div>';
-  }
-}
-
-function getAvailableVariants(card) {
-  var variants = card.variants || {};
-  var variantKeys = ['normal','holo','reverse','firstEdition','wPromo'];
-  return variantKeys.filter(function(k) { return !!variants[k]; });
-}
-
-function quickToggle(cardId, available) {
-  var variant = available.length === 1 ? available[0] : 'normal';
-  var owned = getOwnedVariants(cardId);
-  var isOwned = owned.indexOf(variant) !== -1;
-  setVariantOwned(cardId, variant, !isOwned);
-  updateGlobalStats();
-  refreshModalCards();
-  render();
-}
-
-function showCardDetailPopover(card) {
-  var overlay = document.getElementById('cardDetailOverlay');
-  var content = document.getElementById('cardDetailContent');
-  overlay.classList.add('active');
-  renderCardDetail(card);
-}
-
-function renderCardDetail(card) {
-  var content = document.getElementById('cardDetailContent');
-  var ownedVariants = getOwnedVariants(card.id);
-  var variants = card.variants || {};
-
-  var variantKeys = ['normal','holo','reverse','firstEdition','wPromo'];
-  var rowsHtml = variantKeys.map(function(key) {
-    var available = !!variants[key];
-    var checked = ownedVariants.indexOf(key) !== -1;
-    var info = VARIANT_INFO[key];
-    return '<div class="variant-row' + (checked ? ' checked' : '') + (available ? '' : ' variant-unavailable') + '" onclick="' + (available ? 'toggleVariant(\'' + card.id + '\',\'' + key + '\')' : '') + '">' +
-      '<div class="variant-checkbox">\u2713</div>' +
-      '<span class="variant-label">' + info.icon + ' ' + info.label + '</span>' +
-      '<span class="variant-label-sub">' + (available ? 'Available' : 'Not available') + '</span>' +
-    '</div>';
-  }).join('');
-
-  content.innerHTML =
-    '<div class="card-detail-top">' +
-      '<img class="card-detail-img" src="' + card.image + '/high.webp" alt="' + card.name + '" onerror="onCardImgError(this)">' +
-      '<div class="card-detail-info">' +
-        '<h3>' + card.name + '</h3>' +
-        '<div class="cd-meta">#' + card.localId + ' &middot; ' + card.id + '</div>' +
-        (card.rarity ? '<div class="cd-rarity">' + card.rarity + '</div>' : '') +
-        (card.illustrator ? '<div class="cd-meta" style="margin-top:6px">Art by ' + card.illustrator + '</div>' : '') +
-        (card.hp ? '<div class="cd-meta">HP ' + card.hp + '</div>' : '') +
-      '</div>' +
-    '</div>' +
-    '<div class="variant-checklist">' +
-      '<h4>Variants You Own</h4>' +
-      rowsHtml +
-    '</div>';
-}
-
-function toggleVariant(cardId, variant) {
-  var ownedVariants = getOwnedVariants(cardId);
-  var isOwned = ownedVariants.indexOf(variant) !== -1;
-  setVariantOwned(cardId, variant, !isOwned);
-
-  // Re-render the card detail popover
-  if (cardDetailCache[cardId]) renderCardDetail(cardDetailCache[cardId]);
-
-  // Update everything else
-  updateGlobalStats();
-  clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(function() {
-    refreshModalCards();
-    render();
-  }, 300);
-}
-
-function closeCardDetail(e, force) {
-  if (force || (e && e.target === document.getElementById('cardDetailOverlay'))) {
-    document.getElementById('cardDetailOverlay').classList.remove('active');
-  }
-}
-
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    if (document.getElementById('cardDetailOverlay').classList.contains('active')) {
-      closeCardDetail(null, true);
-    } else {
-      closeModal(null, true);
-    }
-  }
+  if (e.key === 'Escape') closeModal(null, true);
 });
 
 init();
