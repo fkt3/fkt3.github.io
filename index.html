@@ -415,6 +415,7 @@ document.getElementById('searchInput').addEventListener('input', render);
 async function openSet(id) {
   currentModalSetId = id;
   currentModalFilter = 'all';
+  modalDirty = false;
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow = 'hidden';
   var content = document.getElementById('modalContent');
@@ -476,17 +477,15 @@ function refreshModalCards() {
 }
 function setModalFilter(f) { currentModalFilter = f; refreshModalCards(); }
 
+var modalDirty = false;
+
 function toggleCard(cardId) {
   var nowOwned = toggleOwned(cardId);
-  // Instant DOM toggle
+  modalDirty = true;
   var el = document.querySelector('[data-card-id="' + cardId + '"]');
   if (el) { if (nowOwned) el.classList.add('owned'); else el.classList.remove('owned'); }
   updateGlobalStats();
-  // Update modal toolbar stats without full re-render
   updateModalStats();
-  // Debounce grid re-render only
-  clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(function() { render(); }, 400);
 }
 
 function updateModalStats() {
@@ -518,7 +517,8 @@ function toggleAllCards(setId) {
   if (allOwned) { set.cards.forEach(function(c) { delete col[c.id]; }); }
   else { set.cards.forEach(function(c) { if (!col[c.id]) col[c.id] = Date.now(); }); }
   saveCollection(col);
-  updateGlobalStats(); refreshModalCards(); render();
+  modalDirty = true;
+  updateGlobalStats(); refreshModalCards();
   showToast(allOwned ? 'Cleared ' + set.name : 'Marked all as owned!');
 }
 
@@ -527,7 +527,7 @@ function closeModal(e, force) {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
     currentModalSetId = null;
-    render();
+    if (modalDirty) { render(); modalDirty = false; }
   }
 }
 
