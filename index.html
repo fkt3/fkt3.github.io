@@ -526,8 +526,54 @@ function closeModal(e, force) {
   if (force || e.target === document.getElementById('modalOverlay')) {
     document.getElementById('modalOverlay').classList.remove('active');
     document.body.style.overflow = '';
+    // Surgically update just the affected set card instead of full re-render
+    if (modalDirty && currentModalSetId) {
+      updateSetCard(currentModalSetId);
+      modalDirty = false;
+    }
     currentModalSetId = null;
-    if (modalDirty) { render(); modalDirty = false; }
+  }
+}
+
+function updateSetCard(setId) {
+  // Find the set card in the grid by matching the onclick
+  var allCards = document.querySelectorAll('.set-card');
+  var setData = null;
+  for (var i = 0; i < allSets.length; i++) {
+    if (allSets[i].id === setId) { setData = allSets[i]; break; }
+  }
+  if (!setData) return;
+  var total = setData.cardCount ? setData.cardCount.total : 0;
+  var owned = getOwnedInSet(setId);
+  var pct = total > 0 ? Math.round((owned / total) * 100) : 0;
+  var isComplete = total > 0 && owned >= total;
+
+  for (var j = 0; j < allCards.length; j++) {
+    var card = allCards[j];
+    var onclick = card.getAttribute('onclick');
+    if (onclick && onclick.indexOf("'" + setId + "'") !== -1) {
+      // Update owned chip
+      var countsEl = card.querySelector('.set-card-counts');
+      if (countsEl) {
+        var ownedChip = countsEl.querySelector('.count-chip.owned');
+        if (owned > 0) {
+          if (ownedChip) {
+            ownedChip.innerHTML = '<strong>' + owned + '</strong> owned';
+          } else {
+            countsEl.insertAdjacentHTML('beforeend', '<span class="count-chip owned"><strong>' + owned + '</strong> owned</span>');
+          }
+        } else if (ownedChip) {
+          ownedChip.remove();
+        }
+      }
+      // Update progress bar
+      var fill = card.querySelector('.progress-bar-fill');
+      if (fill) {
+        fill.style.width = pct + '%';
+        if (isComplete) fill.classList.add('complete'); else fill.classList.remove('complete');
+      }
+      break;
+    }
   }
 }
 
