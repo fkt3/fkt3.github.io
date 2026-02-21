@@ -346,6 +346,27 @@ var cardDetailCache = {};
 var refreshTimer = null;
 var gridFilter = 'all'; // 'all', 'started', 'complete'
 
+// Placeholder for failed card images
+var CARD_PLACEHOLDER = (function() {
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="300" height="420">' +
+    '<rect width="300" height="420" rx="16" fill="%231a1e2a"/>' +
+    '<rect x="8" y="8" width="284" height="404" rx="12" fill="none" stroke="%23252a38" stroke-width="2"/>' +
+    '<circle cx="150" cy="180" r="50" fill="none" stroke="%23333a4d" stroke-width="3"/>' +
+    '<line x1="100" y1="180" x2="200" y2="180" stroke="%23333a4d" stroke-width="3"/>' +
+    '<circle cx="150" cy="180" r="12" fill="%23333a4d"/>' +
+    '<circle cx="150" cy="180" r="6" fill="%231a1e2a"/>' +
+    '<text x="150" y="270" text-anchor="middle" fill="%23444c60" font-family="sans-serif" font-size="13">No image</text>' +
+    '</svg>';
+  return 'data:image/svg+xml,' + svg;
+})();
+
+function onCardImgError(img) {
+  if (!img._failed) {
+    img._failed = true;
+    img.src = CARD_PLACEHOLDER;
+  }
+}
+
 // Variant display config
 var VARIANT_INFO = {
   normal:       { label: 'Normal',        icon: '' },
@@ -354,6 +375,9 @@ var VARIANT_INFO = {
   firstEdition: { label: '1st Edition',   icon: '①' },
   wPromo:       { label: 'W Promo',       icon: 'W' }
 };
+
+// Placeholder for failed card images
+var CARD_PLACEHOLDER = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420"><rect width="300" height="420" rx="16" fill="#1a1e2a"/><circle cx="150" cy="190" r="60" fill="none" stroke="#252a38" stroke-width="6"/><path d="M90 190h120" stroke="#252a38" stroke-width="6"/><circle cx="150" cy="190" r="14" fill="#252a38"/><path d="M90 190a60 60 0 0 1 120 0" fill="#e8594e" fill-opacity="0.25"/><text x="150" y="300" text-anchor="middle" fill="#8890a4" font-family="sans-serif" font-size="18" font-weight="600">Image unavailable</text></svg>');
 
 // ── Collection helpers ──
 // Format: { "cardId": { variants: ["normal","reverse"], ts: timestamp } }
@@ -693,7 +717,7 @@ function renderModal(set) {
     }
 
     return '<div class="modal-card-item ' + cardClass + '" data-card-id="' + c.id + '" onclick="openCardDetail(\'' + c.id + '\')" title="' + c.name + '">' +
-      '<img class="card-img" src="' + c.image + '/low.webp" alt="' + c.name + '" loading="lazy" onerror="this.style.background=\'rgba(255,255,255,0.03)\'">' +
+      '<img class="card-img" src="' + c.image + '/low.webp" alt="' + c.name + '" loading="lazy" onerror="onCardImgError(this)">' +
       '<div class="card-label">' + c.name + '</div>' +
       '<div class="card-local-id">#' + c.localId + '</div>' +
       tagsHtml +
@@ -832,7 +856,7 @@ function renderCardDetail(card) {
 
   content.innerHTML =
     '<div class="card-detail-top">' +
-      '<img class="card-detail-img" src="' + card.image + '/high.webp" alt="' + card.name + '" onerror="this.src=\'' + card.image + '/low.webp\'">' +
+      '<img class="card-detail-img" src="' + card.image + '/high.webp" alt="' + card.name + '" onerror="onCardImgError(this)">' +
       '<div class="card-detail-info">' +
         '<h3>' + card.name + '</h3>' +
         '<div class="cd-meta">#' + card.localId + ' &middot; ' + card.id + '</div>' +
