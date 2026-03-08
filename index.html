@@ -74,9 +74,6 @@
 
   header { padding:48px 32px 32px; text-align:center; position:relative; }
   header::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:min(700px,80%); height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
-  .logo-badge { display:inline-flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:6px 16px 6px 8px; font-size:12px; color:var(--text-dim); margin-bottom:20px; letter-spacing:0.5px; text-transform:uppercase; }
-  .logo-badge .dot { width:8px; height:8px; background:var(--green); border-radius:50%; animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   h1 { font-family:'Anybody',sans-serif; font-weight:900; font-size:clamp(2.4rem,5vw,4rem); letter-spacing:-1px; line-height:1.1; margin-bottom:12px; }
   h1 .highlight { background:linear-gradient(135deg,var(--accent),#ff9d4e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
   .subtitle { color:var(--text-dim); font-size:16px; max-width:500px; margin:0 auto; line-height:1.6; }
@@ -190,7 +187,6 @@
 </button>
 <div class="app">
   <header>
-    <div class="logo-badge"><span class="dot"></span> Pokémon Set Tracker</div>
     <h1>Pokémon <span class="highlight">Set Tracker</span></h1>
     <p class="subtitle">Browse sets, click cards to mark them as owned. Everything is saved locally in your browser.</p>
   </header>
@@ -248,7 +244,21 @@
 // ── Theme ──
 (function() {
   var saved = localStorage.getItem('pokemon_tcg_theme');
-  if (saved === 'light') document.documentElement.classList.add('light');
+  var preferLight;
+  if (saved) {
+    preferLight = saved === 'light';
+  } else {
+    preferLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  }
+  if (preferLight) document.documentElement.classList.add('light');
+  // Listen for system theme changes (only if no manual override saved)
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(e) {
+      if (!localStorage.getItem('pokemon_tcg_theme')) {
+        document.documentElement.classList.toggle('light', e.matches);
+      }
+    });
+  }
 })();
 function toggleTheme() {
   var isLight = document.documentElement.classList.toggle('light');
